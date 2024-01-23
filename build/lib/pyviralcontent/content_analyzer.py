@@ -20,7 +20,8 @@ class ContentAnalyzer:
         average_score, overall_likert, overall_quality = self.likert_scale.calculate_average_score(df)
         df.loc[df.shape[0]] = ['OVERALL SCORE', average_score, overall_likert, overall_quality]
         # Calculate the probability of the content going viral
-        viral_probability = self.readability_calculator.calculate_virality_probability(df)
+        #viral_probability = self.readability_calculator.calculate_virality_probability(df)
+        viral_probability = self.readability_calculator.calculate_virality_probability(df,self.content_type)
         # Visualize the readability scores heatmap
         self.visualizer.plot_scores_heatmap(df, self.content_type)
         return df, viral_probability

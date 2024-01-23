@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: pyviralcontent
-Version: 0.1.0
+Version: 0.1.2
 Summary: A package for analyzing content readability and virality potential.
 Home-page: https://github.com/bhaskatripathi/pyviralcontent
 Author: Bhaskar Tripathi

@@ -59,20 +59,33 @@ class ReadabilityCalculator:
         
         return pd.concat([keener_df, overall_df], ignore_index=True)
     
-    def calculate_virality_probability(self, df):
-      virality_weights = {
-          'flesch_reading_ease': 0.15,
-          'flesch_kincaid': 0.15,
-          'gunning_fog': 0.1,
-          'smog': 0.1,
-          'linsear_write': 0.1,
-          'coleman_liau': 0.2,
-          'ari': 0.2
-          }
-      df['Weighted_Likert'] = df['Test'].map(virality_weights).fillna(0) * df['Likert_Scale']
-      virality_score = df['Weighted_Likert'].sum() / df['Test'].map(virality_weights).fillna(0).sum()
-      probability_of_going_viral = virality_score / 5  # Assuming 5 is the max Likert scale value
-      return probability_of_going_viral
+    # def calculate_virality_probability(self, df):
+    #   virality_weights = {
+    #       'flesch_reading_ease': 0.15,
+    #       'flesch_kincaid': 0.15,
+    #       'gunning_fog': 0.1,
+    #       'smog': 0.1,
+    #       'linsear_write': 0.1,
+    #       'coleman_liau': 0.2,
+    #       'ari': 0.2
+    #       }
+    #   df['Weighted_Likert'] = df['Test'].map(virality_weights).fillna(0) * df['Likert_Scale']
+    #   virality_score = df['Weighted_Likert'].sum() / df['Test'].map(virality_weights).fillna(0).sum()
+    #   probability_of_going_viral = virality_score / 5  # Assuming 5 is the max Likert scale value
+    #   return probability_of_going_viral
+  
+    def calculate_virality_probability(self, df, content_type):
+        virality_weights = {'flesch_reading_ease': 0.15,'flesch_kincaid': 0.15,'gunning_fog': 0.1,
+                          'smog': 0.1,'linsear_write': 0.1,'coleman_liau': 0.2,'ari': 0.2}
+        df['Weighted_Likert'] = df['Test'].map(virality_weights).fillna(0) * df['Likert_Scale']
+        virality_score = df['Weighted_Likert'].sum()
+        # Get the tests relevant for the content type
+        relevant_tests = self.content_type_formulas[content_type]
+        # Calculate the sum of the maximum possible weighted scores for the relevant tests
+        max_weighted_score = sum(virality_weights[test] * self.likert_scale.max_scale(test) for test in relevant_tests if test in virality_weights)
+        # Normalize the virality score by the maximum possible weighted score
+        probability_of_going_viral = virality_score / max_weighted_score if max_weighted_score else 0
+        return probability_of_going_viral
 
     @staticmethod
     def kappa(x):

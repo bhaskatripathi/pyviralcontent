@@ -81,6 +81,14 @@ class LikertScale:
             if check_func(score):
                 return likert_value
         return 0
+    
+    def max_scale(self, test_name):
+        if test_name in self.likert_scale_interpretation: 
+            # Find the max Likert scale value for the test
+            return max(value for _, value in self.likert_scale_interpretation[test_name])
+        else:
+            # Default max Likert scale value
+            return max(value for _, value in self.likert_scale_interpretation['default'])
 
     def get_qualitative_descriptor(self, likert_score):
         return self.qualitative_descriptors.get(likert_score, 'Undefined')
