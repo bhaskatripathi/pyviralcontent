@@ -19,7 +19,7 @@ The package currently supports the following content types:
 
 ## Installation
 
-```bash
+```
 pip install pyviralcontent
 ```
 
@@ -107,6 +107,7 @@ test_content_analysis(
 )
 ```
 ![Sample Image](https://github.com/bhaskatripathi/pyviralcontent/blob/main/Sample.JPG?raw=true)
+
 
 ## Features
 

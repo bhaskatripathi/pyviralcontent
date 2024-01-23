@@ -1,0 +1,14 @@
+README.md
+setup.py
+pyviralcontent/__init__.py
+pyviralcontent/content_analyzer.py
+pyviralcontent/likert_scale.py
+pyviralcontent/readability_calculator.py
+pyviralcontent/syllable_counter.py
+pyviralcontent/text_analyzer.py
+pyviralcontent/visualizer.py
+pyviralcontent.egg-info/PKG-INFO
+pyviralcontent.egg-info/SOURCES.txt
+pyviralcontent.egg-info/dependency_links.txt
+pyviralcontent.egg-info/requires.txt
+pyviralcontent.egg-info/top_level.txt

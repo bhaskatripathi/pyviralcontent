@@ -1,0 +1,183 @@
+Metadata-Version: 2.1
+Name: pyviralcontent
+Version: 0.1.4
+Summary: A package for analyzing content readability and virality potential.
+Home-page: https://github.com/bhaskatripathi/pyviralcontent
+Author: Bhaskar Tripathi
+Author-email: bhaskar.tripathi@gmail.com
+Keywords: readability virality content-analysis
+Description-Content-Type: text/markdown
+
+# PyViralContent
+
+`pyviralcontent` is a Python package designed to assess the readability of various types of content and predict the and the probability of the content going viral. It employs multiple readability tests and translates numerical scores into qualitative descriptors based on the Likert scale. The package supports various types of content, allowing for a tailored analysis based on the specific nature of the content.
+
+## Supported Content Types
+
+The package currently supports the following content types:
+
+- `scientific`
+- `blog`
+- `video`
+- `technical`
+- `fictional`
+- `legal`
+- `educational`
+- `news`
+- `advertising`
+- `social_media`
+
+## Installation
+
+```
+pip install pyviralcontent
+```
+
+## Usage
+To analyze your content, you can use the `ContentAnalyzer` class from the `pyviralcontent` package. Here's a simple example of how to use the `ContentAnalyzer` to analyze different types of content:
+
+
+```python
+from pyviralcontent import ContentAnalyzer
+
+def test_content_analysis(content_type, text_content):
+    """
+    Test the content analysis for a given type of content and text content.
+
+    :param content_type: The type of the content (e.g., 'scientific', 'blog', etc.).
+    :param text_content: The actual content to analyze.
+    """
+    # Create an instance of ContentAnalyzer
+    analyzer = ContentAnalyzer(text_content, content_type)
+    # Perform the analysis
+    df, viral_probability = analyzer.analyze()
+    # Print the results
+    print(f"\nReadability Scores Summary for {content_type.capitalize()} Content:")
+    display(df)
+    print(f"The probability of the content going viral is: {viral_probability * 100:.2f}%")
+
+# Example 1: Scientific content
+test_content_analysis(
+    'scientific',
+    "Implement an accessibility-first approach in the design of the website. This includes: • High-contrast visuals for low-vision users. • Text-to-speech functionality for all text, including product descriptions and checkout processes.• Easy keyboard navigation for those unable to use a mouse."
+)
+
+# Example 2: Blog content
+test_content_analysis(
+    'blog',
+    "Today's blog post discusses the importance of user experience design. A good design ensures that users find joy and satisfaction in the interaction with the product, making it an essential aspect of product development."
+)
+
+# Example 3: Technical content
+test_content_analysis(
+    'technical',
+    "The module utilizes an advanced algorithm for data processing, ensuring high performance and reliability. It's optimized for multi-threaded environments, offering significant improvements in processing speed and efficiency."
+)
+
+# Example 4: Fictional content
+test_content_analysis(
+    'fictional',
+    "In the distant future, humanity has reached the stars. Each galaxy is a new frontier, and every planet a new adventure. Join our heroes as they navigate through cosmic dangers and discover the mysteries of the universe."
+)
+
+# Example 5: Legal content
+test_content_analysis(
+    'legal',
+    "The contract stipulates the terms and conditions of the agreement and is legally binding to both parties involved. It outlines the responsibilities, duties, and liabilities in clear, unambiguous language to prevent any misunderstandings."
+)
+
+# Example 6: Educational content
+test_content_analysis(
+    'educational',
+    "Today's lesson covers the fundamental principles of physics. We'll explore Newton's laws of motion, the concept of gravity, and the principles of energy and momentum. Each concept will be demonstrated with real-life examples and interactive experiments."
+)
+
+# Example 7: News content
+test_content_analysis(
+    'news',
+    "In today's news, the local community is coming together to support the annual food drive. Last year's drive helped over a thousand families, and this year the organizers hope to double that number with the help of generous donations and volunteer work."
+)
+
+# Example 8: Advertising content
+test_content_analysis(
+    'advertising',
+    "Introducing the latest innovation in home cleaning! Our new vacuum cleaner is equipped with advanced technology to clean your home efficiently and effortlessly. Say goodbye to dust and hello to spotless floors!"
+)
+
+# Example 9: Social Media content
+test_content_analysis(
+    'social_media',
+    "Just finished an amazing workout at the gym! 💪 Feeling energized and ready to take on the day. Remember, a healthy lifestyle is not just a goal, it's a way of living. #FitnessGoals #HealthyLiving"
+)
+
+# Example 10: Video content
+test_content_analysis(
+    'video',
+    "In this video, we'll take a closer look at the intricate ecosystem of the Amazon rainforest. Discover the diverse species that call it home, and learn about the critical role it plays in our planet's climate system."
+)
+```
+![Sample Image](https://github.com/bhaskatripathi/pyviralcontent/blob/main/Sample.JPG?raw=true)
+
+
+## Features
+
+- Multiple readability tests for different content types.
+- Qualitative descriptors based on the Likert scale.
+- Estimation of content's virality potential.
+- Supported content types include: scientific, blog, video, technical, fictional, legal, educational, news, advertising, social_media.
+
+## How it Works?
+
+The `PyViralContent` package offers a sophisticated approach to analyzing textual content by recognizing that no single readability metric is representative fits all content types. This is essential a Multi Criteria Decision Analysis Problem which is solved using Keener's method. Different types of content have unique stylistic and structural characteristics, and the package addresses this by associating specific readability formulas with each content type. This method ensures a nuanced analysis and provides a more accurate reflection of the content's readability and potential virality.
+
+### Content Type Formulas
+
+The package defines `content_type_formulas`, a mapping of content types to the sets of readability formulas that are best suited for those types. Here's the association between content types and their corresponding readability formulas. These formulae have been integrated using Keener's MCDA method. Keener's method computes the eigenvector corresponding to the largest eigenvalue of a certain matrix derived from the pairwise comparisons. This eigenvector provides the weights or ratings of the items being compared, reflecting their relative importance or dominance in the context of the comparison.
+
+For a detailed explanation of Keener's method and its applications, please refer to the following resource:
+[Understanding Keener's Method (PDF)](https://www.dcs.bbk.ac.uk/~ale/dsta+dsat/dsta+dsat-3/lm-ch3-keener.pdf)
+
+The `PyViralContent` package integrates Keener's method in its analytical engine to enhance the robustness and depth of the content analysis, offering users a sophisticated tool for assessing the potential impact and reach of their content.
+
+| Content Type  | Readability Formulas Used               |
+|---------------|-----------------------------------------|
+| Scientific    | Gunning Fog, Coleman Liau, ARI          |
+| Blog          | Flesch Reading Ease, Flesch Kincaid     |
+| Video         | SMOG, Flesch Reading Ease               |
+| Technical     | Linsear Write, ARI                      |
+| Fictional     | Flesch Kincaid, Coleman Liau            |
+| Legal         | Gunning Fog, SMOG                       |
+| Educational   | Flesch Kincaid, Linsear Write           |
+| News          | Flesch Reading Ease, Gunning Fog        |
+| Advertising   | Flesch Reading Ease, Coleman Liau       |
+| Social Media  | Flesch Reading Ease, Linsear Write      |
+
+### Interpretation with Likert Scale
+
+The results from the readability formulas are interpreted using a Likert scale, which provides a qualitative measure of the content's readability. This scale is not one-size-fits-all; it is tailored to each readability formula to accurately reflect the nuances of each metric. Here's how the Likert scale is applied for each readability formula:
+
+| Readability Formula     | Likert Scale Interpretation (Score Range)  | Qualitative Descriptor     |
+|-------------------------|--------------------------------------------|----------------------------|
+| Flesch Reading Ease     | 90-inf: 5, 70-90: 4, 50-70: 3, 30-50: 2, 0-30: 1 | Very Easy to Very Confusing |
+| Flesch Kincaid          | <=5: 5, 5-6: 4, 6-7: 3, 7-9: 2, >=9: 1     | Very Easy to Very Confusing |
+| Gunning Fog             | <=6: 5, 6-8: 4, 8-12: 3, 12-17: 2, >=17: 1 | Very Easy to Very Confusing |
+| SMOG                    | <=6: 5, 6-8: 4, 8-12: 3, 12-14: 2, >=14: 1 | Very Easy to Very Confusing |
+| Linsear Write           | <=5: 5, 5-8: 4, 8-12: 3, 12-15: 2, >=15: 1 | Very Easy to Very Confusing |
+| Coleman Liau            | <=5: 5, 5-8: 4, 8-12: 3, 12-15: 2, >=15: 1 | Very Easy to Very Confusing |
+| ARI                     | <=2: 5, 2-4: 4, 4-7: 3, 7-10: 2, >=10: 1   | Very Easy to Very Confusing |
+
+These ranges and descriptors ensure that the readability score is not just a number, but a meaningful indicator of how the content will likely be received by the intended audience. The `PyViralContent` package provides a detailed output, including both the readability scores from each formula used and the overall virality probability, offering valuable insights into the potential reach and impact of the content analyzed.
+
+
+## Contributing
+
+Contributions to `pyviralcontent` are welcome! Please feel free to submit issues, fork the repository, and create pull requests.
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Contact
+
+Bhaskar Tripathi - bhaskar.tripathi@gmail.com
+GitHub: https://github.com/bhaskatripathi/pyviralcontent
