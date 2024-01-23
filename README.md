@@ -123,7 +123,7 @@ The `PyViralContent` package offers a sophisticated approach to analyzing textua
 ### Content Type Formulas
 
 The package defines `content_type_formulas`, a mapping of content types to the sets of readability formulas that are best suited for those types. Here's the association between content types and their corresponding readability formulas. These formulae have been integrated using Keener's MCDA method. Keener's method computes the eigenvector corresponding to the largest eigenvalue of a certain matrix derived from the pairwise comparisons. This eigenvector provides the weights or ratings of the items being compared, reflecting their relative importance or dominance in the context of the comparison.
-
+![UML](https://github.com/bhaskatripathi/pyviralcontent/blob/main/UML.png)
 For a detailed explanation of Keener's method and its applications, please refer to the following resource:
 [Understanding Keener's Method (PDF)](https://www.dcs.bbk.ac.uk/~ale/dsta+dsat/dsta+dsat-3/lm-ch3-keener.pdf)
 
